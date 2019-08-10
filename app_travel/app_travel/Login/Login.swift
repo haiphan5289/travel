@@ -71,6 +71,7 @@ class Login: UIViewController {
         signinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         signinButton.titleLabel?.textAlignment = .center
         self.viewAlready.addSubview(signinButton)
+        print("cho vui")
         
         signinButton.translatesAutoresizingMaskIntoConstraints = false
         signinButton.topAnchor.constraint(equalTo: textAlready.bottomAnchor, constant: 15).isActive = true
