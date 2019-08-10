@@ -1,0 +1,28 @@
+PODS:
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
+    - GoogleMaps/Base
+  - ImagePicker (3.1.0)
+  - QBImagePickerController (3.4.0)
+
+DEPENDENCIES:
+  - GoogleMaps
+  - ImagePicker
+  - QBImagePickerController
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - GoogleMaps
+    - ImagePicker
+    - QBImagePickerController
+
+SPEC CHECKSUMS:
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  ImagePicker: db1fd7626337b2577c523bef5f499bbbe5a37079
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+
+PODFILE CHECKSUM: 61fd7f4fbf77f8a4932c4ae09b7bbc9cee63a054
+
+COCOAPODS: 1.7.0.rc.2

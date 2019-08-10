@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-app_travel/Pods-app_travel-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ImagePicker/ImagePicker.framework
+${BUILT_PRODUCTS_DIR}/QBImagePickerController/QBImagePickerController.framework
