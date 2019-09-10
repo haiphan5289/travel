@@ -7,6 +7,13 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+import Firebase
+import FirebaseAuth
+
+let storage = Storage.storage().reference()
+var ref = Database.database().reference()
 
 class Login: UIViewController {
 
@@ -15,9 +22,11 @@ class Login: UIViewController {
     var viewAlready: UIView!
     var imgLogin: UIImageView!
     var modelText = ConstantText()
+    let fbLoginManager: LoginManager = LoginManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
+
     }
     
     func setViews(){
@@ -56,7 +65,7 @@ class Login: UIViewController {
         let textAlready = UILabel()
         textAlready.textAlignment = .center
         textAlready.font = UIFont.systemFont(ofSize: 20)
-        textAlready.text = modelText.textAlready
+        textAlready.text = modelText.txtAlready
         self.viewAlready.addSubview(textAlready)
         
         textAlready.translatesAutoresizingMaskIntoConstraints = false
@@ -66,20 +75,24 @@ class Login: UIViewController {
         textAlready.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         let signinButton = UIButton(type: .system)
-        signinButton.setTitle(modelText.textSignin, for: .normal)
+        signinButton.setTitle(modelText.txtSignIn, for: .normal)
         signinButton.setTitleColor(#colorLiteral(red: 0.3753814292, green: 0.7879322652, blue: 0.4544816855, alpha: 1), for: .normal)
         signinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         signinButton.titleLabel?.textAlignment = .center
+        signinButton.addTarget(self, action: #selector(handleMoveSignIn), for: .touchUpInside)
         self.viewAlready.addSubview(signinButton)
-        print("cho vui")
         
         signinButton.translatesAutoresizingMaskIntoConstraints = false
         signinButton.topAnchor.constraint(equalTo: textAlready.bottomAnchor, constant: 15).isActive = true
         signinButton.centerXAnchor.constraint(equalTo: self.viewAlready.centerXAnchor, constant: 0).isActive = true
         signinButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         signinButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        
+    
+    }
+    
+    //Move to SignIn
+    @objc func handleMoveSignIn(){
+        self.navigationController?.pushViewController(SignIn(), animated: true)
     }
     
     func setObjectViewButton(){
@@ -98,10 +111,18 @@ class Login: UIViewController {
     }
     
     func setViewButtotAutoLayout(){
-        let fbButton = UIButton()
-        fbButton.makeColor(text: modelText.textFbButton,
-                           color: UIColor(red: 61/255, green: 101/255, blue: 161/255, alpha: 1))
+//        let fbButton = UIButton()
+//        let fbButton = FBLoginButton()
+        var fbButton: UIButton!
+        fbButton = UIButton()
+//        fbButton.readPermissions = ["public_profile", "email"]
+        fbButton.makeColor(text: modelText.txtFBButton,
+                           color: FunctionAll.share.ColoIconViews(type: .Blue))
+        fbButton.addTarget(self, action: #selector(handleLoginFB), for: .touchUpInside)
+//        fbButton.makeColorFBButton(text: modelText.textFbButton,
+//                                   color: UIColor(red: 61/255, green: 101/255, blue: 161/255, alpha: 1))
         self.viewButton.addSubview(fbButton)
+//        fbButton.delegate = self
         
         fbButton.translatesAutoresizingMaskIntoConstraints = false
         fbButton.topAnchor.constraint(equalTo: self.viewButton.topAnchor, constant: 5).isActive = true
@@ -110,7 +131,8 @@ class Login: UIViewController {
         fbButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         let emailButton = UIButton()
-        emailButton.makeColor(text: modelText.textEmailButton, color: #colorLiteral(red: 0.3721430526, green: 0.7244011739, blue: 0.3593610636, alpha: 1))
+        emailButton.makeColor(text: modelText.txtEmailButton,
+                              color: FunctionAll.share.ColoIconViews(type: .Green))
         self.viewButton.addSubview(emailButton)
         
         emailButton.translatesAutoresizingMaskIntoConstraints = false
@@ -120,7 +142,7 @@ class Login: UIViewController {
         emailButton.heightAnchor.constraint(equalTo: fbButton.heightAnchor, multiplier: 1).isActive = true
         
         let textTerm = UILabel()
-        textTerm.text = modelText.textPrivacy
+        textTerm.text = modelText.txtPrivacy
         textTerm.textAlignment = .center
         textTerm.font = UIFont.systemFont(ofSize: 10)
         textTerm.numberOfLines = 2
@@ -131,6 +153,26 @@ class Login: UIViewController {
         textTerm.centerXAnchor.constraint(equalTo: fbButton.centerXAnchor, constant: 0).isActive = true
         textTerm.widthAnchor.constraint(equalTo: fbButton.widthAnchor, constant: 0).isActive = true
         textTerm.heightAnchor.constraint(equalTo: fbButton.heightAnchor, multiplier: 1).isActive = true
+    }
+    
+    @objc func handleLoginFB(){
+        LoginFB()
+    }
+    
+    func LoginFB(){
+        fbLoginManager.logIn(permissions: ["email"], from: self) { (result, err) in
+            if err != nil {
+                print("\(String(describing: err))")
+                return
+            }
+            let fbLoginManagerResult: LoginManagerLoginResult = result!
+            if fbLoginManagerResult.grantedPermissions != nil {
+                let alert = FunctionAll.share.ShowLoadingWithAlert()
+                self.present(alert, animated: true, completion: nil)
+                //truyền tham chiếu alert
+                self.getDataFacebook(alert: alert)
+            }
+        }
     }
 
     func setObjectViewIMG(){
@@ -146,11 +188,15 @@ class Login: UIViewController {
         
         setIMGViewIMG()
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     func setIMGViewIMG(){
         UIApplication.shared.statusBarStyle = .lightContent
+
         imgLogin = UIImageView()
-        imgLogin.image = UIImage(named: modelText.textImgLogin)
+        imgLogin.image = UIImage(named: modelText.txtImgLogin)
         imgLogin.contentMode = .scaleToFill
         self.viewIMG.addSubview(imgLogin)
         
@@ -161,7 +207,7 @@ class Login: UIViewController {
         imgLogin.heightAnchor.constraint(equalTo: self.viewIMG.heightAnchor, multiplier: 0.75).isActive = true
         
         let textLogin = UILabel()
-        textLogin.text = modelText.textLogin
+        textLogin.text = modelText.txtLogin
         textLogin.font = UIFont.boldSystemFont(ofSize: 14)
         textLogin.textAlignment = .center
         self.viewIMG.addSubview(textLogin)
@@ -174,3 +220,18 @@ class Login: UIViewController {
     }
 
 }
+
+//extension Login: LoginButtonDelegate {
+//    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+//        print("Completed")
+//    }
+//
+//    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+//
+//    }
+//    func loginButtonWillLogin(_ loginButton: FBLoginButton) -> Bool {
+//        return true
+//    }
+//
+//
+//}

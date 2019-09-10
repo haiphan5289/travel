@@ -9,11 +9,13 @@
 import Foundation
 
 struct ConstantText {
-    let textLogin = "Make your adventure unforgettable."
-    let textImgLogin = "imgLogin"
-    let textFbButton = "Connect with FaceBook"
-    let textEmailButton = "Register with Email"
-    let textPrivacy = "By signing up or using the Register Later button, you agree to our team Term & Privacy Policies."
-    let textAlready = "Already have an account?"
-    let textSignin = "Sign In"
+    let txtLogin = "Make your adventure unforgettable."
+    let txtImgLogin = "imgLogin"
+    let txtFBButton = "Connect with FaceBook"
+    let txtEmailButton = "Register with Email"
+    let txtPrivacy = "By signing up or using the Register Later button, you agree to our team Term & Privacy Policies."
+    let txtAlready = "Already have an account?"
+    let txtSignIn = "Sign In"
+    let txtLoginFBSuccess = "Login Facebook success"
+    let txtAlertTitle = "Thông báo đã xảy ra lỗi"
 }

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		7EB525880F96BF1DADCDCCF0 /* Pods_app_travel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E800584913D03B2356CE52ED /* Pods_app_travel.framework */; };
 		930FBBDD22F537870000C67E /* journi_detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930FBBDC22F537870000C67E /* journi_detail.swift */; };
+		9319442223274D4400ECA44B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9319442123274D4300ECA44B /* GoogleService-Info.plist */; };
+		93194424232759F100ECA44B /* FunctionAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93194423232759F100ECA44B /* FunctionAll.swift */; };
+		9319442623276D3400ECA44B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9319442523276D3400ECA44B /* User.swift */; };
+		931944492327F14200ECA44B /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931944482327F14200ECA44B /* SignIn.swift */; };
 		934DA62722F150FA00354EA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA62622F150FA00354EA6 /* AppDelegate.swift */; };
 		934DA62922F150FA00354EA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA62822F150FA00354EA6 /* ViewController.swift */; };
 		934DA62E22F150FB00354EA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 934DA62D22F150FB00354EA6 /* Assets.xcassets */; };
@@ -32,6 +36,11 @@
 /* Begin PBXFileReference section */
 		539199AA77C664ABEB297033 /* Pods-app_travel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app_travel.release.xcconfig"; path = "Target Support Files/Pods-app_travel/Pods-app_travel.release.xcconfig"; sourceTree = "<group>"; };
 		930FBBDC22F537870000C67E /* journi_detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = journi_detail.swift; sourceTree = "<group>"; };
+		931943FF2324B2A200ECA44B /* app_travel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = app_travel.entitlements; sourceTree = "<group>"; };
+		9319442123274D4300ECA44B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		93194423232759F100ECA44B /* FunctionAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionAll.swift; sourceTree = "<group>"; };
+		9319442523276D3400ECA44B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		931944482327F14200ECA44B /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		934DA62322F150FA00354EA6 /* app_travel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app_travel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		934DA62622F150FA00354EA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		934DA62822F150FA00354EA6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +106,7 @@
 		934DA62522F150FA00354EA6 /* app_travel */ = {
 			isa = PBXGroup;
 			children = (
+				931943FF2324B2A200ECA44B /* app_travel.entitlements */,
 				93FD050A22FE7DE800287F24 /* Model */,
 				93FE03C522FE70CA00582662 /* Login */,
 				934DA64122F15D8600354EA6 /* Profile */,
@@ -109,6 +119,7 @@
 				934DA62822F150FA00354EA6 /* ViewController.swift */,
 				934DA62D22F150FB00354EA6 /* Assets.xcassets */,
 				934DA62F22F150FB00354EA6 /* LaunchScreen.storyboard */,
+				9319442123274D4300ECA44B /* GoogleService-Info.plist */,
 				934DA63222F150FB00354EA6 /* Info.plist */,
 			);
 			path = app_travel;
@@ -181,6 +192,8 @@
 			children = (
 				93FD050B22FE7DFF00287F24 /* ConstantText.swift */,
 				93FD050D22FE832F00287F24 /* ExtenSion.swift */,
+				93194423232759F100ECA44B /* FunctionAll.swift */,
+				9319442523276D3400ECA44B /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -189,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				93FE03C622FE70FD00582662 /* Login.swift */,
+				931944482327F14200ECA44B /* SignIn.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -237,6 +251,11 @@
 				TargetAttributes = {
 					934DA62222F150FA00354EA6 = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -265,6 +284,7 @@
 			files = (
 				934DA63122F150FB00354EA6 /* LaunchScreen.storyboard in Resources */,
 				934DA62E22F150FB00354EA6 /* Assets.xcassets in Resources */,
+				9319442223274D4400ECA44B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,9 +357,11 @@
 				934DA62922F150FA00354EA6 /* ViewController.swift in Sources */,
 				934DA64322F15D9D00354EA6 /* house_vc.swift in Sources */,
 				934DA63D22F1534C00354EA6 /* my_journis_vc.swift in Sources */,
+				93194424232759F100ECA44B /* FunctionAll.swift in Sources */,
 				934DA63A22F152EE00354EA6 /* tab_bar.swift in Sources */,
 				934DA64922F15DC700354EA6 /* profile_vc.swift in Sources */,
 				934DA67522F425B600354EA6 /* my_journis_first_cell.swift in Sources */,
+				931944492327F14200ECA44B /* SignIn.swift in Sources */,
 				93FD050E22FE832F00287F24 /* ExtenSion.swift in Sources */,
 				93FE03C722FE70FE00582662 /* Login.swift in Sources */,
 				93FE03C422FD2D4900582662 /* JourniDetailCellDisplay.swift in Sources */,
@@ -351,6 +373,7 @@
 				934DA62722F150FA00354EA6 /* AppDelegate.swift in Sources */,
 				934DA65522F2F3C600354EA6 /* my_journis_cell.swift in Sources */,
 				930FBBDD22F537870000C67E /* journi_detail.swift in Sources */,
+				9319442623276D3400ECA44B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +512,7 @@
 			baseConfigurationReference = F3AC4DA7D6A56400A20CAA94 /* Pods-app_travel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = app_travel/app_travel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7VA7N3EEEN;
 				INFOPLIST_FILE = app_travel/Info.plist;
@@ -509,6 +533,7 @@
 			baseConfigurationReference = 539199AA77C664ABEB297033 /* Pods-app_travel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = app_travel/app_travel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7VA7N3EEEN;
 				INFOPLIST_FILE = app_travel/Info.plist;

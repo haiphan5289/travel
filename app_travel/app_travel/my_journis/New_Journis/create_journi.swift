@@ -70,7 +70,7 @@ class create_journi: UIViewController {
     }
     
     func text_img_autolayout(){
-        var lb = UILabel()
+        let lb = UILabel()
         lb.text = "SELECT PHOTOS"
         lb.font = UIFont.systemFont(ofSize: 30)
         lb.textAlignment = .center

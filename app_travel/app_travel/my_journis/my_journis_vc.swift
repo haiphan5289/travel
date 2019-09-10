@@ -65,7 +65,7 @@ class my_journis_vc: UIViewController {
 //        search.backgroundColor = UIColor.darkGray
 //        search.barTintColor = UIColor.darkGray
         search.tintColor = UIColor.darkGray
-        let height = UIApplication.shared.statusBarFrame.height + self.navigationController!.navigationBar.frame.size.height
+        _ = UIApplication.shared.statusBarFrame.height + self.navigationController!.navigationBar.frame.size.height
         
         search.translatesAutoresizingMaskIntoConstraints = false
         search.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
@@ -82,6 +82,7 @@ class my_journis_vc: UIViewController {
     
     
     func setup_navigation(){
+        UIApplication.shared.statusBarStyle = .default
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.navigationItem.title = "My Journis"
@@ -91,7 +92,8 @@ class my_journis_vc: UIViewController {
 
         
         self.navigationController?.navigationBar.barTintColor = UIColor.white
-        
+        //hide back button
+        self.navigationItem.hidesBackButton = true
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: ""), for: UIBarMetrics.default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage(named: "")
     }

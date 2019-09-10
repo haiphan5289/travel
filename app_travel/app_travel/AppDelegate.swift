@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleMaps
+import FBSDKCoreKit
+import Firebase
 
 let googleApiKey = "AIzaSyBw1ZNlH8mrofspy1MuHzNRl-apmRiFfHA"
 
@@ -21,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = Login()
+        window?.rootViewController = UINavigationController(rootViewController: Login())
         
         GMSServices.provideAPIKey(googleApiKey)
         
@@ -34,7 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        
 //        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
 //        BarButtonItemAppearance.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -200, vertical: 0), for:UIBarMetrics.default)
+        
+        //setup & Config FB
+        ApplicationDelegate.shared.application(application,
+                                               didFinishLaunchingWithOptions: launchOptions)
+        
+        //config Firebase
+        FirebaseApp.configure()
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return  ApplicationDelegate.shared.application(app,
+                                                       open: url,
+                                                       sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                                       annotation: options [UIApplication.OpenURLOptionsKey.annotation])
+//        return ApplicationDelegate.shared.application(app, open: url, options: options)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -52,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        AppEvents.activateApp()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
