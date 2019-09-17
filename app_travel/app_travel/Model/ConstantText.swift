@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct ConstantText {
+class ConstantText {
+    public static let share = ConstantText()
     let txtLogin = "Make your adventure unforgettable."
     let txtImgLogin = "imgLogin"
     let txtFBButton = "Connect with FaceBook"
@@ -17,5 +18,17 @@ struct ConstantText {
     let txtAlready = "Already have an account?"
     let txtSignIn = "Sign In"
     let txtLoginFBSuccess = "Login Facebook success"
-    let txtAlertTitle = "Thông báo đã xảy ra lỗi"
+    let txtAlertFailed = "Thông báo đã xảy ra lỗi"
+    let txtAlertNormal = "Thông báo"
+    let txtEmail = "Email"
+    let txtPwd = "Password"
+    let txtForgotPwd = "Forgot your password?"
+    let txtRecoverPwd = "Recover Password"
+    let txtLBRecoverPwd = "What's the email you signed up with?"
+    let txtRecover = "Recover"
+    let txtContentResetPassword = "Please, open the email to change your new password"
+    let txtRegisterEmail = "Register"
+    let txtRegisterContent = "What's your email address?"
+    let txtNextbt = "Next"
+    let txtRegisterUploadaSefie = "Upload a Selfie"
 }

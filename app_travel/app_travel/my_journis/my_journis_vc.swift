@@ -88,6 +88,7 @@ class my_journis_vc: UIViewController {
         self.navigationItem.title = "My Journis"
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Following", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
 //        self.navigationController?.navigationBar.frame.size.height = 600
 
         
