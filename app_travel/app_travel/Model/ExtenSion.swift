@@ -12,6 +12,7 @@ import FBSDKLoginKit
 import Firebase
 
 extension UIButton {
+    //setup & Config Button
     func makeColor(text: String, color: UIColor){
         self.setTitle(text, for: .normal)
         self.layer.cornerRadius = 20
@@ -23,6 +24,7 @@ extension UIButton {
 }
 
 extension UIViewController {
+    //Get thông tin user của Facebook
     //truyền tham chiếu alert
     func getDataFacebook(alert: UIAlertController, arUsers: [String]){
         //The method gets ìnformation from FB
@@ -43,7 +45,7 @@ extension UIViewController {
                     //remove space string
                     //                        print( jsonFB.name!.replacingOccurrences(of: " ", with: ""))
                     let profileUrl = "http://graph.facebook.com/\(jsonFB.id!)/picture?type=large"
-                    self.createUserOnFB(email: "facebook.ezy9@gmail.com",
+                    self.createUserOnFB(email: jsonFB.email!,
                                         profileUrl: profileUrl,
                                         pwd: jsonFB.id!,
                                         name: jsonFB.name!,
@@ -61,6 +63,7 @@ extension UIViewController {
         }
     }
     
+    //Lấy email của trong table Users
     func FetchEmail(completion: @escaping ([String]) -> [String]){
         var artemp: [String] = [String]()
         let tableCheck = ref.child("Users")
@@ -111,14 +114,12 @@ extension UIViewController {
             }
             alert.dismiss(animated: true) {
                 //thêm user vào table user
-                let tableUser = ref.child("Users").child(Auth.auth().currentUser!.uid)
-                let value: Dictionary<String,Any> = ["uid": Auth.auth().currentUser!.uid,
-                                                     "email": email,
-                                                     "pwd": pwd,
-                                                     "profileUrl": profileUrl,
-                                                     "name": name
-                ]
-                tableUser.setValue(value)
+                FunctionAll.share.addUsertoFirebase(id: Auth.auth().currentUser!.uid,
+                                                    email: email,
+                                                    pwd: pwd,
+                                                    profileUrl: profileUrl,
+                                                    firstName: name,
+                                                    lastName: name)
             }
         })
     }
@@ -145,10 +146,32 @@ extension UIViewController {
     
     //setup Navigation
     func setupNavigation(text: String){
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
         UIApplication.shared.statusBarStyle = .default
         //remove text back button
-        self.navigationController?.navigationBar.topItem?.title = ""
+//        self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationItem.title = text
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.layoutIfNeeded()
+
+    }
+    
+    //Setup Navigation cho các view trong tabbar
+    func createNavigationViewInTabBar(statusBar: UIStatusBarStyle, titlerLarge: Bool, title: String){
+        //set color cho status bâr
+        UIApplication.shared.statusBarStyle = .default
+        //Set title large
+        self.navigationController?.navigationBar.prefersLargeTitles = titlerLarge
+        //Ẩn back button
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.title = title
+        //set isTransLucent để navigation bar & status bar cùng màu
+        self.navigationController?.navigationBar.isTranslucent = true
+        //remove border navigation
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.layoutIfNeeded()
     }
     
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 class ConstantText {
+    //Danh sách các text trong app
     public static let share = ConstantText()
     let txtLogin = "Make your adventure unforgettable."
     let txtImgLogin = "imgLogin"
@@ -31,4 +32,9 @@ class ConstantText {
     let txtRegisterContent = "What's your email address?"
     let txtNextbt = "Next"
     let txtRegisterUploadaSefie = "Upload a Selfie"
+    let txtFirstName = "First name"
+    let txtLastName = "Last name"
+    let txtMyJournis = "My Journis"
+    let txtFollowing = "Following"
+    let txtSearchMyJournis = "Filter by keyword or country"
 }

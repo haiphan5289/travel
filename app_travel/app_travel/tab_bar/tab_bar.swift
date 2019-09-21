@@ -21,6 +21,7 @@ class tab_bar: UITabBarController {
         super.viewDidLoad()
         self.delegate = self
 //        let recent = UINavigationController(rootViewController: my_journis_vc())
+        self.navigationItem.hidesBackButton = true
         recent.tabBarItem.title = "My Journis"
         recent.tabBarItem.image = UIImage(named: "gallery")
         create_vc()

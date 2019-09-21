@@ -9,62 +9,64 @@
 import UIKit
 import GoogleMaps
 import QBImagePickerController
+import SnapKit
+import RxCocoa
+import RxSwift
+import Firebase
 
 
 class journi_detail: UIViewController {
 
     var array_img: [UIImage] = [UIImage]()
     var isCheck_move_from_create: Bool = false
-//    var img_cover: UIImageView!
     var collect: UICollectionView!
+    var isOpenCreateJourni: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        //remove phần từ viewcontroller = navigation
-        if isCheck_move_from_create {
-            var array_vc = self.navigationController?.viewControllers
-            array_vc?.remove(at: 1)
-            self.navigationController?.viewControllers = array_vc!
-            isCheck_move_from_create = false
-        }
-        
-        let img = UIImageView(frame: CGRect(x: 0, y: 50, width: 100, height: 50))
-        img.image = array_img.first
-        self.view.addSubview(img)
         setup_view()
     }
     
     func setup_view(){
-//        img_cover_autolayout()
         removeViewControllers()
         collect_autolayout()
         setupViewBackGround()
         setupNavigation()
         setupViewAction()
-        
+        uploadDatatoFirebase()
+    }
+    
+    func uploadDatatoFirebase(){
+        guard let currentUser = Auth.auth().currentUser else { return }
+        DispatchQueue.main.async {
+            FunctionAll.share.uploadDatatoFireBaseonJourniDetailtableHome(id: currentUser.uid,
+                                                                          title: "All Photos",
+                                                                          location: "Viet Name",
+                                                                          moment: 1,
+                                                                          block: 1)
+        }
     }
     let viewAction = UIView()
     func setupViewAction(){
         viewAction.backgroundColor = UIColor.white
         self.view.addSubview(viewAction)
-        
-        viewAction.translatesAutoresizingMaskIntoConstraints = false
-        viewAction.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-        viewAction.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-        viewAction.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
-        viewAction.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        viewAction.snp.makeConstraints { (make) in
+            make.left.bottom.right.equalToSuperview()
+            make.height.equalTo(50)
+        }
         
 //        setupObjectViewAction()
         let buttonGallery = UIButton()
         buttonGallery.setImage(UIImage(named: "gallery"), for: .normal)
         buttonGallery.addTarget(self, action: #selector(HandleShowIMG), for: .touchUpInside)
         viewAction.addSubview(buttonGallery)
-        
-        buttonGallery.translatesAutoresizingMaskIntoConstraints = false
-        buttonGallery.rightAnchor.constraint(equalTo: viewAction.rightAnchor, constant: -8).isActive = true
-        buttonGallery.bottomAnchor.constraint(equalTo: viewAction.bottomAnchor, constant: 0).isActive = true
-        buttonGallery.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonGallery.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        buttonGallery.snp.makeConstraints { (make) in
+            make.width.height.equalTo(50)
+            make.right.equalTo(viewAction).inset(8)
+            make.bottom.equalTo(viewAction)
+        }
         
         let txtComment = UITextField()
         txtComment.attributedPlaceholder = NSAttributedString(string: "Aa...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
@@ -73,12 +75,12 @@ class journi_detail: UIViewController {
         txtComment.layer.cornerRadius = 20
         txtPaddingVw(txt: txtComment)
         viewAction.addSubview(txtComment)
-        
-        txtComment.translatesAutoresizingMaskIntoConstraints = false
-        txtComment.rightAnchor.constraint(equalTo: buttonGallery.leftAnchor, constant: 8).isActive = true
-        txtComment.centerYAnchor.constraint(equalTo: viewAction.centerYAnchor, constant: 0).isActive = true
-        txtComment.leftAnchor.constraint(equalTo: self.viewAction.leftAnchor, constant: 0).isActive = true
-        txtComment.heightAnchor.constraint(equalToConstant: 40).isActive = true
+
+        txtComment.snp.makeConstraints { (make) in
+            make.centerY.left.equalTo(self.viewAction)
+            make.right.equalTo(buttonGallery.snp.left).offset(8)
+            make.height.equalTo(40)
+        }
     }
     
     @objc func HandleShowIMG(){
@@ -101,25 +103,25 @@ class journi_detail: UIViewController {
         let layout = UICollectionViewFlowLayout()
         collect = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.view.addSubview(collect)
-        
-        collect.translatesAutoresizingMaskIntoConstraints = false
-        collect.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-        collect.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-        collect.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
-        collect.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-        
+        collect.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview()
+
+        }
+//        collect.backgroundColor = .red
         collect.delegate = self
         collect.dataSource = self
         collect.register(JourniDetailCell.self, forCellWithReuseIdentifier: "cell")
         collect.register(JourniDetailCellDisplay.self, forCellWithReuseIdentifier: "cellDisplay")
-        collect.backgroundColor = UIColor.white
+        collect.backgroundColor = UIColor.red
         collect.isPagingEnabled = true
+        collect.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
     }
     
     var viewNavigation: UIView!
     var viewBackGroundNavigation: UIView!
     func setupNavigation(){
         UIApplication.shared.statusBarStyle = .lightContent
+        self.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.isHidden = true
         if viewNavigation != nil {
             viewNavigation.isHidden = false
@@ -129,6 +131,8 @@ class journi_detail: UIViewController {
     }
     
     func SettingNavigation(){
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationItem.hidesBackButton = true
         viewNavigation = UIView(frame: CGRect(x: 0, y: 20, width: self.view.frame.size.width, height: 44))
         //        self.navigationController?.navigationBar.isTranslucent = true
         
@@ -139,17 +143,19 @@ class journi_detail: UIViewController {
         backButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         viewNavigation.addSubview(backButton)
         
-        let photoButton = UIButton(type: .custom)
+        let photoButton = FunctionAll.share.createSignInBt(radius: 0,
+                                                           text: "",
+                                                           isImage: true,
+                                                           textImg: "photo")
         photoButton.setImage(UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         photoButton.frame = CGRect(x: 44, y: 0, width: 44, height: 44)
         photoButton.tintColor = UIColor.white
         viewNavigation.addSubview(photoButton)
         
-        let printButton = UIButton(type: .system)
-        printButton.setTitle("Print", for: .normal)
+        let printButton = FunctionAll.share.createSignInBt(radius: 25,
+                                                           text: "Print",
+                                                           isImage: false, textImg: "")
         printButton.frame = CGRect(x: self.view.frame.size.width - 84 , y: 5, width: 64, height: 34)
-        printButton.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-        printButton.setTitleColor(UIColor.white, for: .normal)
         printButton.layer.cornerRadius = printButton.frame.size.height / 2
         viewNavigation.addSubview(printButton)
         
@@ -164,9 +170,8 @@ class journi_detail: UIViewController {
     }
     
     @objc func handleBack(){
-        _ = navigationController?.popViewController(animated: true)
+        self.navigationController?.pushViewController(my_journis_vc(), animated: true)
     }
-
     
     func removeViewControllers(){
         if isCheck_move_from_create {
@@ -187,7 +192,12 @@ extension journi_detail: UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == 0 {
             let cell = collect.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! JourniDetailCell
-
+            if isOpenCreateJourni {
+                cell.imgCover.image = array_img.first
+            } else {
+                cell.imgCover.image = UIImage(named: "hai")
+            }
+            
             return cell
         }
         let cell = collect.dequeueReusableCell(withReuseIdentifier: "cellDisplay", for: indexPath) as! JourniDetailCellDisplay

@@ -93,13 +93,16 @@ class FunctionAll {
         return lb
     }
     //khởi tạo button: button SignIn
-    func createSignInBt(radius: CGFloat, text: String) -> UIButton {
+    func createSignInBt(radius: CGFloat, text: String, isImage: Bool, textImg: String) -> UIButton {
         let bt = UIButton(type: .system)
         bt.setTitle(text, for: .normal)
         bt.setTitleColor(FunctionAll.share.ColoIconViews(type: .White), for: .normal)
-        bt.backgroundColor = FunctionAll.share.ColoIconViews(type: .Disable)
+        bt.backgroundColor = FunctionAll.share.ColoIconViews(type: .Blue)
         bt.layer.cornerRadius = radius
         bt.clipsToBounds = true
+        if isImage {
+            bt.setImage(UIImage(named: textImg), for: .normal)
+        }
         return bt
         
     }
@@ -120,6 +123,29 @@ class FunctionAll {
         return img
     }
     
-    
-
+    //thêm User mới vào database
+    func addUsertoFirebase(id: String, email: String, pwd: String, profileUrl: String, firstName: String, lastName: String){
+        DispatchQueue.main.async {
+            let tableUser = ref.child("Users").child(id)
+            let dic: Dictionary<String,Any> = ["id": id,
+                                               "email": email,
+                                               "pwd": pwd,
+                                               "profileUrl": profileUrl,
+                                               "firstName": firstName,
+                                               "lasName": lastName
+            ]
+            tableUser.setValue(dic)
+        }
+    }
+    //upload dữ liệu lên firebase ở table Home
+    func uploadDatatoFireBaseonJourniDetailtableHome(id: String, title: String, location: String, moment: Int, block: Int){
+        let tableHome = ref.child("Home").child(id)
+        let data: Dictionary<String,Any> = ["id": id,
+                                            "title": title,
+                                            "location": location,
+                                            "moment": moment,
+                                            "block": block
+        ]
+        tableHome.setValue(data)
+    }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7EB525880F96BF1DADCDCCF0 /* Pods_app_travel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E800584913D03B2356CE52ED /* Pods_app_travel.framework */; };
 		930FBBDD22F537870000C67E /* journi_detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930FBBDC22F537870000C67E /* journi_detail.swift */; };
+		9314DEB423335F8900FC30C4 /* Check.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314DEB323335F8900FC30C4 /* Check.swift */; };
 		9319442223274D4400ECA44B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9319442123274D4300ECA44B /* GoogleService-Info.plist */; };
 		93194424232759F100ECA44B /* FunctionAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93194423232759F100ECA44B /* FunctionAll.swift */; };
 		9319442623276D3400ECA44B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9319442523276D3400ECA44B /* User.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		539199AA77C664ABEB297033 /* Pods-app_travel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app_travel.release.xcconfig"; path = "Target Support Files/Pods-app_travel/Pods-app_travel.release.xcconfig"; sourceTree = "<group>"; };
 		930FBBDC22F537870000C67E /* journi_detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = journi_detail.swift; sourceTree = "<group>"; };
+		9314DEB323335F8900FC30C4 /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
 		931943FF2324B2A200ECA44B /* app_travel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = app_travel.entitlements; sourceTree = "<group>"; };
 		9319442123274D4300ECA44B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		93194423232759F100ECA44B /* FunctionAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionAll.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				930FBBDC22F537870000C67E /* journi_detail.swift */,
 				93FE03C122FD25E500582662 /* JourniDetailCell.swift */,
 				93FE03C322FD2D4900582662 /* JourniDetailCellDisplay.swift */,
+				9314DEB323335F8900FC30C4 /* Check.swift */,
 			);
 			path = New_Journis;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				934DA64722F15DBA00354EA6 /* notification.swift in Sources */,
 				93FD050C22FE7DFF00287F24 /* ConstantText.swift in Sources */,
 				934DA62722F150FA00354EA6 /* AppDelegate.swift in Sources */,
+				9314DEB423335F8900FC30C4 /* Check.swift in Sources */,
 				934DA65522F2F3C600354EA6 /* my_journis_cell.swift in Sources */,
 				930FBBDD22F537870000C67E /* journi_detail.swift in Sources */,
 				9319442623276D3400ECA44B /* User.swift in Sources */,

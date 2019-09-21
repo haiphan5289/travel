@@ -26,6 +26,11 @@ class Login: UIViewController {
     var arUsertoCheck: [String] = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Hàm này đang đc dùng 2 nơi
+        //View hiện tại sẽ mất Navigation
+        //View kế tiếp cũng mất navigation
+//        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationController?.navigationBar.isHidden = true
         setViews()
         
     }
@@ -39,14 +44,23 @@ class Login: UIViewController {
             self.arUsertoCheck = users
             return users
         }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        //remove text cho next view
+        // needed to clear the text in the back navigation:
+        self.navigationItem.title = " "
     }
     
     //Hàm quản lý login & signout
     fileprivate func LoginedSignOut() {
         isLogined()
-        SignOutUser()
+//        SignOutUser()
     }
     
+    //Setup view của text Already
     func setObjectViewAlreadyAccount(){
         viewAlready = UIView()
         viewAlready.backgroundColor = .white
@@ -119,6 +133,7 @@ class Login: UIViewController {
         
     }
     
+    //setup & Config view Button: FB, Email
     func setViewButtotAutoLayout(){
         //        let fbButton = UIButton()
         //        let fbButton = FBLoginButton()
@@ -167,11 +182,14 @@ class Login: UIViewController {
         self.navigationController?.pushViewController(RegisterEmail(), animated: true)
     }
     
+    //Xử ly khi login FB
     @objc func handleLoginFB(){
         LoginFaceBook()
     }
     
+    //hàm login FB
     func LoginFaceBook(){
+        //Xin quyền để lấy dữ liệu từ FB
         fbLoginManager.logIn(permissions: ["email"], from: self) { (result, err) in
             if err != nil {
                 print("\(String(describing: err))")
@@ -179,6 +197,7 @@ class Login: UIViewController {
             } else if result!.isCancelled {
                 self.fbLoginManager.logOut()
             } else {
+                //Setup để lấy dữ liệu khi load FB
                 let fbLoginManagerResult: LoginManagerLoginResult = result!
                 if fbLoginManagerResult.grantedPermissions != nil {
                     let alert = FunctionAll.share.ShowLoadingWithAlert()
@@ -190,15 +209,17 @@ class Login: UIViewController {
         }
     }
     
+    //Tự đọng login khi User đã đăng nhập: sau khi bấm login, register, và tài khoản có sẵn
     func isLogined(){
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
-                self.navigationController?.pushViewController(tab_bar(), animated: true)
+                self.navigationController?.pushViewController(my_journis_vc(), animated: true)
             }
         }
-        
+
     }
     
+    //Logout User
     func SignOutUser(){
         do {
             try Auth.auth().signOut()
@@ -224,6 +245,7 @@ class Login: UIViewController {
         return .lightContent
     }
     
+    //Setup & View image
     func setIMGViewIMG(){
         UIApplication.shared.statusBarStyle = .lightContent
         

@@ -144,11 +144,12 @@ class JourniDetailCell: UICollectionViewCell {
         imgCover.image = UIImage(named: "hai")
         imgCover.layer.borderWidth = 1
         imgCover.layer.borderColor = UIColor.darkGray.cgColor
+        imgCover.contentMode = .scaleToFill
         self.addSubview(imgCover)
         
         imgCover.translatesAutoresizingMaskIntoConstraints = false
         imgCover.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
-        imgCover.topAnchor.constraint(equalTo: self.topAnchor, constant: -20).isActive = true
+        imgCover.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
         imgCover.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
         imgCover.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3).isActive = true
     }

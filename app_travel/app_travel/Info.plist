@@ -68,7 +68,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allows photos 2</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 	<key>Privacy – Location When In Use Usage Description </key>
 	<string>By accessing your location, this app can find you a good place to eat.</string>
 </dict>

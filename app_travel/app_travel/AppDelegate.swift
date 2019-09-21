@@ -28,8 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(googleApiKey)
         
         //remove border line navigation
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        //Hàm này dùng để chèn lên nên khi add button vào sẽ không thể click được nếu vừa navigation tới màn hình khác
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
         //remove text back button
 //        let BarButtonItemAppearance = UIBarButtonItem.appearance()

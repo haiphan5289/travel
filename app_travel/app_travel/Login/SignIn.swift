@@ -22,22 +22,43 @@ class SignIn: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = false
         setupViews()
     }
     
     func setupViews(){
-        self.setupNavigation(text: modeText.txtSignIn)
+
+        //setup các thuộc tính của view
         setupElementViews()
+        //Xử lý khi keybaord xuất hiện
+        handleWhenKeyboardAppers()
+    }
+    //Đặt hàm này trong viewWillAppear
+    //Để khi back lại thì sẽ gọi navigation lại lần nữa
+    override func viewWillAppear(_ animated: Bool) {
+        //setup Navigation
+        //        self.setupNavigation(text: modeText.txtSignIn)
+        //xài hàm navigation mới hợp hơn
+        self.setupNavigation(text: ConstantText.share.txtSignIn)
+    }
+    //remove text back button cho màn hình RecoverPasssword
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationItem.title = ""
+    }
+    
+    fileprivate func handleWhenKeyboardAppers() {
+        //handle when keyboard apppres
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyBoard),
                                                name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
+        //handle when keybaord hidden
         NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyBoard),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func handleShowKeyBoard(notification: NSNotification){
         if let sizeKeyBoard = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            print(sizeKeyBoard.height)
+            //Update lại khoảng cách botton khi keyboard xuất hiện
             self.heightBottom.update(inset: sizeKeyBoard.height + 10)
             UIView.animate(withDuration: 0.1) {
                 self.view.layoutIfNeeded()
@@ -46,6 +67,7 @@ class SignIn: UIViewController {
     }
     
     @objc func handleHideKeyBoard(notification: NSNotification){
+        //Update lại khoảng cách botton khi keyboard ẩn
         self.heightBottom.update(inset: 10)
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
@@ -57,6 +79,7 @@ class SignIn: UIViewController {
         var isCheckEmail: Bool = false
         var isCheckPwd: Bool = false
         let height = self.navigationController?.navigationBar.frame.height
+        //Tạo txtEmail
         txtEmail = FunctionAll.share.createTextFieldCustom(text: modeText.txtEmail, isEmail: true, isPwd: false)
         self.view.addSubview(txtEmail)
         
@@ -82,7 +105,7 @@ class SignIn: UIViewController {
                                 topconstant: 0, heightConstant: 50, leftConstant: 10, rightConstant: 10)
             
         }
-        btSignIn = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtSignIn)
+        btSignIn = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtSignIn, isImage: false, textImg: "")
         btSignIn.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
         self.view.addSubview(btSignIn)
         btSignIn.snp.makeConstraints { (make) in
@@ -92,6 +115,7 @@ class SignIn: UIViewController {
             self.heightBottom = make.bottom.equalToSuperview().inset(10).constraint
         }
         
+        //obserable txtEmail để kiểm tra button có hợp lệ hat k
         txtEmail.rx.text.asObservable().subscribe(onNext: {
             if !self.txtEmail.text!.isEmpty{
                 isCheckEmail = true
@@ -125,6 +149,7 @@ class SignIn: UIViewController {
         
     }
     
+    //Hamd dùng để Login
     @objc func handleSignIn(){
         Auth.auth().signIn(withEmail: txtEmail.text!, password: txtPwd.text!) { (result, err) in
             if err != nil {

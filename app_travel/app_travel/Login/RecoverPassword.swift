@@ -38,6 +38,7 @@ class RecoverPassword: UIViewController {
         }
         
     }
+
     
     func setupEmailfields(){
         let height = self.navigationController!.navigationBar.frame.height
@@ -57,7 +58,7 @@ class RecoverPassword: UIViewController {
             make.height.equalTo(50)
             make.top.equalTo(lb.snp.bottom).offset(0)
         }
-        let btRecover = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtRecover)
+        let btRecover = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtRecover, isImage: false, textImg: "")
         btRecover.isEnabled = false
         btRecover.addTarget(self, action: #selector(handleSendPasswordtoEmail), for: .touchUpInside)
         self.view.addSubview(btRecover)
@@ -83,6 +84,7 @@ class RecoverPassword: UIViewController {
     
     //Xử lý khi nhấn button gưi pass về email
     @objc func handleSendPasswordtoEmail(){
+        //Hàm của firebase để send link tới email khi muốn reset mất khẩu
         Auth.auth().sendPasswordReset(withEmail: tfEmail.text!) { (err) in
             if err != nil {
                 let alert = FunctionAll.share.ShowAlertBug(text: err!.localizedDescription, title: ConstantText.share.txtAlertFailed)
