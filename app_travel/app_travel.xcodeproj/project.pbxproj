@@ -27,6 +27,9 @@
 		934DA65522F2F3C600354EA6 /* my_journis_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA65422F2F3C600354EA6 /* my_journis_cell.swift */; };
 		934DA67522F425B600354EA6 /* my_journis_first_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA67422F425B500354EA6 /* my_journis_first_cell.swift */; };
 		934DA67A22F4485600354EA6 /* create_journi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA67922F4485600354EA6 /* create_journi.swift */; };
+		93B0FEC42337A871000A9C91 /* PhotoGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0FEC32337A871000A9C91 /* PhotoGeneral.swift */; };
+		93B0FEC62337B4FC000A9C91 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0FEC52337B4FC000A9C91 /* BaseCell.swift */; };
+		93B0FEC82337B561000A9C91 /* PhotoGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0FEC72337B561000A9C91 /* PhotoGeneralCell.swift */; };
 		93D8AF39232A3017001CB1C8 /* RecoverPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D8AF38232A3016001CB1C8 /* RecoverPassword.swift */; };
 		93D8AF3D232FCD50001CB1C8 /* RegisterEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D8AF3C232FCD50001CB1C8 /* RegisterEmail.swift */; };
 		93D8AF3F232FD31B001CB1C8 /* RegisterProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D8AF3E232FD31B001CB1C8 /* RegisterProfile.swift */; };
@@ -61,6 +64,9 @@
 		934DA65422F2F3C600354EA6 /* my_journis_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_journis_cell.swift; sourceTree = "<group>"; };
 		934DA67422F425B500354EA6 /* my_journis_first_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_journis_first_cell.swift; sourceTree = "<group>"; };
 		934DA67922F4485600354EA6 /* create_journi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = create_journi.swift; sourceTree = "<group>"; };
+		93B0FEC32337A871000A9C91 /* PhotoGeneral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGeneral.swift; sourceTree = "<group>"; };
+		93B0FEC52337B4FC000A9C91 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		93B0FEC72337B561000A9C91 /* PhotoGeneralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGeneralCell.swift; sourceTree = "<group>"; };
 		93D8AF38232A3016001CB1C8 /* RecoverPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverPassword.swift; sourceTree = "<group>"; };
 		93D8AF3C232FCD50001CB1C8 /* RegisterEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEmail.swift; sourceTree = "<group>"; };
 		93D8AF3E232FD31B001CB1C8 /* RegisterProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfile.swift; sourceTree = "<group>"; };
@@ -117,6 +123,7 @@
 				931943FF2324B2A200ECA44B /* app_travel.entitlements */,
 				93FD050A22FE7DE800287F24 /* Model */,
 				93FE03C522FE70CA00582662 /* Login */,
+				93B0FEC22337A84A000A9C91 /* SelectPhotos */,
 				934DA64122F15D8600354EA6 /* Profile */,
 				934DA64022F15D7E00354EA6 /* Chat */,
 				934DA63F22F15D7100354EA6 /* Search */,
@@ -196,6 +203,15 @@
 			path = New_Journis;
 			sourceTree = "<group>";
 		};
+		93B0FEC22337A84A000A9C91 /* SelectPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				93B0FEC32337A871000A9C91 /* PhotoGeneral.swift */,
+				93B0FEC72337B561000A9C91 /* PhotoGeneralCell.swift */,
+			);
+			path = SelectPhotos;
+			sourceTree = "<group>";
+		};
 		93FD050A22FE7DE800287F24 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +219,7 @@
 				93FD050D22FE832F00287F24 /* ExtenSion.swift */,
 				93194423232759F100ECA44B /* FunctionAll.swift */,
 				9319442523276D3400ECA44B /* User.swift */,
+				93B0FEC52337B4FC000A9C91 /* BaseCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -372,17 +389,20 @@
 				93D8AF3D232FCD50001CB1C8 /* RegisterEmail.swift in Sources */,
 				93194424232759F100ECA44B /* FunctionAll.swift in Sources */,
 				934DA63A22F152EE00354EA6 /* tab_bar.swift in Sources */,
+				93B0FEC42337A871000A9C91 /* PhotoGeneral.swift in Sources */,
 				934DA64922F15DC700354EA6 /* profile_vc.swift in Sources */,
 				934DA67522F425B600354EA6 /* my_journis_first_cell.swift in Sources */,
 				931944492327F14200ECA44B /* SignIn.swift in Sources */,
 				93D8AF3F232FD31B001CB1C8 /* RegisterProfile.swift in Sources */,
 				93FD050E22FE832F00287F24 /* ExtenSion.swift in Sources */,
+				93B0FEC82337B561000A9C91 /* PhotoGeneralCell.swift in Sources */,
 				93FE03C722FE70FE00582662 /* Login.swift in Sources */,
 				93FE03C422FD2D4900582662 /* JourniDetailCellDisplay.swift in Sources */,
 				934DA64522F15DA900354EA6 /* search_vc.swift in Sources */,
 				934DA67A22F4485600354EA6 /* create_journi.swift in Sources */,
 				93D8AF39232A3017001CB1C8 /* RecoverPassword.swift in Sources */,
 				93FE03C222FD25E500582662 /* JourniDetailCell.swift in Sources */,
+				93B0FEC62337B4FC000A9C91 /* BaseCell.swift in Sources */,
 				934DA64722F15DBA00354EA6 /* notification.swift in Sources */,
 				93FD050C22FE7DFF00287F24 /* ConstantText.swift in Sources */,
 				934DA62722F150FA00354EA6 /* AppDelegate.swift in Sources */,

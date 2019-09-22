@@ -30,6 +30,9 @@ class create_journi: UIViewController {
         text_center_autolayout()
         collect_autolayout()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
     
     func collect_autolayout(){
         let layout = UICollectionViewFlowLayout()
@@ -101,12 +104,13 @@ class create_journi: UIViewController {
     }
 
     @objc func handle_show_img(){
-        let img_picker : QBImagePickerController = QBImagePickerController()
-        img_picker.delegate = self
-        img_picker.allowsMultipleSelection = true
-        img_picker.showsNumberOfSelectedAssets = true
-//        img_picker.sourceType = .photoLibrary
-        present(img_picker, animated: true, completion: nil)
+//        let img_picker : QBImagePickerController = QBImagePickerController()
+//        img_picker.delegate = self
+//        img_picker.allowsMultipleSelection = true
+//        img_picker.showsNumberOfSelectedAssets = true
+////        img_picker.sourceType = .photoLibrary
+//        present(img_picker, animated: true, completion: nil)
+        self.navigationController?.pushViewController(PhotoGeneral(), animated: true)
     }
     
     func navigation_autolayout(){
@@ -167,19 +171,25 @@ extension create_journi: QBImagePickerControllerDelegate {
         //bât cờ mở từ CreateJourni để load imag
         new.isOpenCreateJourni = true
         self.navigationController?.pushViewController(new, animated: true)
+        
     }
 
 
 }
 extension UIViewController {
+    //hàm để convert phasset to uiimage
     func getAssetThumbnail(asset: PHAsset) -> UIImage {
+        var img: UIImage?
         let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-            thumbnail = result!
-        })
-        return thumbnail
+        let options = PHImageRequestOptions()
+        options.version = .original
+        options.isSynchronous = true
+        manager.requestImageData(for: asset, options: options) { data, _, _, _ in
+            
+            if let data = data {
+                img = UIImage(data: data)
+            }
+        }
+        return img!
     }
 }

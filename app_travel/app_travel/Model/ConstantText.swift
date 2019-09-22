@@ -37,4 +37,6 @@ class ConstantText {
     let txtMyJournis = "My Journis"
     let txtFollowing = "Following"
     let txtSearchMyJournis = "Filter by keyword or country"
+    let txtPhotoGeneral = "Choose your source"
+    let txtDone = "Done"
 }

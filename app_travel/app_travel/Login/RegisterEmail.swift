@@ -49,7 +49,11 @@ class RegisterEmail: UIViewController {
     
     private func setupElementEmailfields(){
         guard let height = self.navigationController?.navigationBar.frame.height else { return }
-        let lb = FunctionAll.share.createLabel(text: ConstantText.share.txtRegisterContent, alignment: .left)
+        let lb = FunctionAll.share.createLabel(text: ConstantText.share.txtRegisterContent,
+                                               alignment: .left,
+                                               textColor: FunctionAll.share.ColoIconViews(type: .Black),
+                                               isTitle: true
+        )
         self.view.addSubview(lb)
         lb.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
@@ -66,7 +70,11 @@ class RegisterEmail: UIViewController {
             make.height.equalTo(50)
             make.top.equalTo(lb.snp.bottom).offset(0)
         }
-        let btNext = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtNextbt, isImage: false, textImg: "")
+        let btNext = FunctionAll.share.createSignInBt(radius: 25,
+                                                      text: ConstantText.share.txtNextbt,
+                                                      isImage: false,
+                                                      textImg: "",
+                                                      colorBR: FunctionAll.share.ColoIconViews(type: .Disable))
         btNext.isEnabled = false
         btNext.addTarget(self, action: #selector(handleMovetoNext), for: .touchUpInside)
         self.view.addSubview(btNext)

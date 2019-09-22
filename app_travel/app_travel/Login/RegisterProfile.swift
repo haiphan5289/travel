@@ -49,7 +49,10 @@ class RegisterProfile: UIViewController {
             make.top.equalTo(self.view.snp.top).offset(height + 20 + 10)
             make.width.height.equalTo(50)
         }
-        let lb = FunctionAll.share.createLabel(text: ConstantText.share.txtRegisterUploadaSefie, alignment: .left)
+        let lb = FunctionAll.share.createLabel(text: ConstantText.share.txtRegisterUploadaSefie,
+                                               alignment: .left,
+                                               textColor: FunctionAll.share.ColoIconViews(type: .Black),
+                                               isTitle: true)
         self.view.addSubview(lb)
         lb.snp.makeConstraints { (make) in
             make.left.equalTo(img.snp.right).offset(10)
@@ -83,7 +86,12 @@ class RegisterProfile: UIViewController {
         }
         
         
-        btRegister = FunctionAll.share.createSignInBt(radius: 20, text: ConstantText.share.txtRegisterEmail, isImage: false, textImg: "")
+        btRegister = FunctionAll.share.createSignInBt(radius: 20,
+                                                      text: ConstantText.share.txtRegisterEmail,
+                                                      isImage: false,
+                                                      textImg: "",
+                                                      colorBR: FunctionAll.share.ColoIconViews(type: .Disable)
+        )
 //        btRegister.setTitleColor(FunctionAll.share.ColoIconViews(type: .Disable), for: .normal)
         btRegister.addTarget(self, action: #selector(handleRegisterEmail), for: .touchUpInside)
         btRegister.isEnabled = true

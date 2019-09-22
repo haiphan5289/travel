@@ -35,7 +35,7 @@ class journi_detail: UIViewController {
         setupViewAction()
         uploadDatatoFirebase()
     }
-    
+
     func uploadDatatoFirebase(){
         guard let currentUser = Auth.auth().currentUser else { return }
         DispatchQueue.main.async {
@@ -55,7 +55,7 @@ class journi_detail: UIViewController {
             make.left.bottom.right.equalToSuperview()
             make.height.equalTo(50)
         }
-        
+
 //        setupObjectViewAction()
         let buttonGallery = UIButton()
         buttonGallery.setImage(UIImage(named: "gallery"), for: .normal)
@@ -67,7 +67,7 @@ class journi_detail: UIViewController {
             make.right.equalTo(viewAction).inset(8)
             make.bottom.equalTo(viewAction)
         }
-        
+
         let txtComment = UITextField()
         txtComment.attributedPlaceholder = NSAttributedString(string: "Aa...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
         txtComment.layer.borderColor = UIColor.gray.cgColor
@@ -82,23 +82,23 @@ class journi_detail: UIViewController {
             make.height.equalTo(40)
         }
     }
-    
+
     @objc func HandleShowIMG(){
         let img: QBImagePickerController = QBImagePickerController()
         img.delegate = self
         img.allowsMultipleSelection = true
         img.showsNumberOfSelectedAssets = true
         present(img, animated: true, completion: nil)
-        
+
     }
-    
+
     func txtPaddingVw(txt:UITextField) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 5))
         txt.leftViewMode = .always
         txt.leftView = paddingView
     }
-    
-    
+
+
     func collect_autolayout(){
         let layout = UICollectionViewFlowLayout()
         collect = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -116,7 +116,7 @@ class journi_detail: UIViewController {
         collect.isPagingEnabled = true
         collect.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
     }
-    
+
     var viewNavigation: UIView!
     var viewBackGroundNavigation: UIView!
     func setupNavigation(){
@@ -129,50 +129,53 @@ class journi_detail: UIViewController {
         }
         SettingNavigation()
     }
-    
+
     func SettingNavigation(){
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationItem.hidesBackButton = true
         viewNavigation = UIView(frame: CGRect(x: 0, y: 20, width: self.view.frame.size.width, height: 44))
         //        self.navigationController?.navigationBar.isTranslucent = true
-        
-        
+
+
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "left_arrow"), for: .normal)
         backButton.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
         backButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         viewNavigation.addSubview(backButton)
-        
+
         let photoButton = FunctionAll.share.createSignInBt(radius: 0,
                                                            text: "",
                                                            isImage: true,
-                                                           textImg: "photo")
+                                                           textImg: "photo",
+                                                           colorBR: FunctionAll.share.ColoIconViews(type: .Blue))
         photoButton.setImage(UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         photoButton.frame = CGRect(x: 44, y: 0, width: 44, height: 44)
         photoButton.tintColor = UIColor.white
         viewNavigation.addSubview(photoButton)
-        
+
         let printButton = FunctionAll.share.createSignInBt(radius: 25,
                                                            text: "Print",
-                                                           isImage: false, textImg: "")
+                                                           isImage: false,
+                                                           textImg: "",
+                                                           colorBR: FunctionAll.share.ColoIconViews(type: .Blue))
         printButton.frame = CGRect(x: self.view.frame.size.width - 84 , y: 5, width: 64, height: 34)
         printButton.layer.cornerRadius = printButton.frame.size.height / 2
         viewNavigation.addSubview(printButton)
-        
+
         self.view.addSubview(viewNavigation)
     }
-    
+
     func setupViewBackGround(){
         viewBackGroundNavigation = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 64))
         viewBackGroundNavigation.backgroundColor = UIColor.red
         viewBackGroundNavigation.alpha = 0
         self.view.addSubview(viewBackGroundNavigation)
     }
-    
+
     @objc func handleBack(){
-        self.navigationController?.pushViewController(my_journis_vc(), animated: true)
+        self.navigationController?.pushViewController(tab_bar(), animated: true)
     }
-    
+
     func removeViewControllers(){
         if isCheck_move_from_create {
             var array_vc = self.navigationController?.viewControllers
@@ -181,14 +184,14 @@ class journi_detail: UIViewController {
             isCheck_move_from_create = false
         }
     }
-    
+
 
 }
 extension journi_detail: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == 0 {
             let cell = collect.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! JourniDetailCell
@@ -197,11 +200,11 @@ extension journi_detail: UICollectionViewDelegate, UICollectionViewDataSource, U
             } else {
                 cell.imgCover.image = UIImage(named: "hai")
             }
-            
+
             return cell
         }
         let cell = collect.dequeueReusableCell(withReuseIdentifier: "cellDisplay", for: indexPath) as! JourniDetailCellDisplay
-  
+
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -209,14 +212,14 @@ extension journi_detail: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         var visibleRect = CGRect()
-        
+
         visibleRect.origin = collect.contentOffset
         visibleRect.size = collect.bounds.size
-        
+
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-        
+
         guard let indexPath = collect.indexPathForItem(at: visiblePoint) else { return }
-        
+
         if indexPath.row == 0 {
             viewBackGroundNavigation.alpha = 1
             UIView.animate(withDuration: 0.5) {
@@ -231,8 +234,8 @@ extension journi_detail: UICollectionViewDelegate, UICollectionViewDataSource, U
             }
         }
     }
-    
-    
+
+
 }
 extension journi_detail: QBImagePickerControllerDelegate{
     func qb_imagePickerControllerDidCancel(_ imagePickerController: QBImagePickerController!) {

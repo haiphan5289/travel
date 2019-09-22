@@ -96,7 +96,10 @@ class SignIn: UIViewController {
                                 topconstant: 10, heightConstant: 50, leftConstant: 10, rightConstant: 10)
         }
         
-        let lbForgot = FunctionAll.share.createLabel(text: modeText.txtForgotPwd, alignment: .center)
+        let lbForgot = FunctionAll.share.createLabel(text: modeText.txtForgotPwd,
+                                                     alignment: .center,
+                                                     textColor: FunctionAll.share.ColoIconViews(type: .Black),
+                                                     isTitle: true)
         lbForgot.isUserInteractionEnabled = true
         lbForgot.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMoveToForgot)))
         self.view.addSubview(lbForgot)
@@ -105,7 +108,12 @@ class SignIn: UIViewController {
                                 topconstant: 0, heightConstant: 50, leftConstant: 10, rightConstant: 10)
             
         }
-        btSignIn = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtSignIn, isImage: false, textImg: "")
+        btSignIn = FunctionAll.share.createSignInBt(radius: 25,
+                                                    text: ConstantText.share.txtSignIn,
+                                                    isImage: false,
+                                                    textImg: "",
+                                                    colorBR: FunctionAll.share.ColoIconViews(type: .Disable)
+        )
         btSignIn.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
         self.view.addSubview(btSignIn)
         btSignIn.snp.makeConstraints { (make) in

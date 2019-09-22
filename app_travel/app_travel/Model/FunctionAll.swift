@@ -13,7 +13,7 @@ import UIKit
 import SnapKit
 
 enum ColorIcon {
-    case Blue, View, Green, Disable, White
+    case Blue, View, Green, Disable, White, Black
 }
 
 class FunctionAll {
@@ -59,6 +59,8 @@ class FunctionAll {
             return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         case .White:
             return UIColor.white
+        case .Black:
+            return UIColor.black
         default:
             return UIColor.orange
         }
@@ -84,20 +86,25 @@ class FunctionAll {
     }
     
     //khởi tạo label: forgot password
-    func createLabel(text: String, alignment: NSTextAlignment) -> UILabel{
+    func createLabel(text: String, alignment: NSTextAlignment, textColor: UIColor, isTitle: Bool) -> UILabel{
         let lb = UILabel()
         lb.text = text
-        lb.font = UIFont.boldSystemFont(ofSize: 16)
         lb.textAlignment = alignment
+        lb.textColor = textColor
+        if isTitle {
+            lb.font = UIFont.boldSystemFont(ofSize: 16)
+        } else {
+            lb.font = UIFont.systemFont(ofSize: 16)
+        }
         
         return lb
     }
     //khởi tạo button: button SignIn
-    func createSignInBt(radius: CGFloat, text: String, isImage: Bool, textImg: String) -> UIButton {
+    func createSignInBt(radius: CGFloat, text: String, isImage: Bool, textImg: String, colorBR: UIColor) -> UIButton {
         let bt = UIButton(type: .system)
         bt.setTitle(text, for: .normal)
         bt.setTitleColor(FunctionAll.share.ColoIconViews(type: .White), for: .normal)
-        bt.backgroundColor = FunctionAll.share.ColoIconViews(type: .Blue)
+        bt.backgroundColor = colorBR
         bt.layer.cornerRadius = radius
         bt.clipsToBounds = true
         if isImage {
@@ -121,6 +128,18 @@ class FunctionAll {
         img.contentMode = .scaleToFill
         img.image = UIImage(named: textIMG)
         return img
+    }
+    
+    func createCollectionView(colorBR: UIColor) -> UICollectionView{
+        let layout = UICollectionViewFlowLayout()
+        let collect: UICollectionView!
+        collect = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collect.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+        collect.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+        collect.backgroundColor = colorBR
+        //tìm hiểu lại
+        collect.setContentOffset(CGPoint.zero, animated: true)
+        return collect
     }
     
     //thêm User mới vào database

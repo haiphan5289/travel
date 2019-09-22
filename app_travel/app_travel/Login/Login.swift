@@ -213,7 +213,7 @@ class Login: UIViewController {
     func isLogined(){
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
-                self.navigationController?.pushViewController(my_journis_vc(), animated: true)
+                self.navigationController?.pushViewController(tab_bar(), animated: true)
             }
         }
 

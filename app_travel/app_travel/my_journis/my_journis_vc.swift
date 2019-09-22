@@ -28,24 +28,16 @@ class my_journis_vc: UIViewController {
     }
 
     func collection_autolayout(){
-        let layout = UICollectionViewFlowLayout()
-        collect = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collect = FunctionAll.share.createCollectionView(colorBR: .white)
         self.view.addSubview(collect)
-
-        collect.translatesAutoresizingMaskIntoConstraints = false
-        collect.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-        collect.topAnchor.constraint(equalTo: self.search.bottomAnchor, constant: 0).isActive = true
-        collect.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
-        collect.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-
+        collect.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(self.search.snp.bottom)
+        }
         collect.register(my_journis_cell.self, forCellWithReuseIdentifier: "cell")
         collect.register(my_journis_first_cell.self, forCellWithReuseIdentifier: "first_cell")
         collect.delegate = self
         collect.dataSource = self
-        collect.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-        collect.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-        collect.backgroundColor = UIColor.white
-        collect.setContentOffset(CGPoint.zero, animated: true)
     }
     var search_bar_top: NSLayoutConstraint?
 
@@ -130,7 +122,7 @@ extension my_journis_vc: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (self.view.bounds.width - 40) / 2, height:  self.view.bounds.height / 3 )
+        return CGSize(width: (self.view.bounds.width - 40) / 2, height:  self.view.bounds.height / 2 )
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {

@@ -42,7 +42,10 @@ class RecoverPassword: UIViewController {
     
     func setupEmailfields(){
         let height = self.navigationController!.navigationBar.frame.height
-        let lb = FunctionAll.share.createLabel(text: ConstantText.share.txtLBRecoverPwd, alignment: .left)
+        let lb = FunctionAll.share.createLabel(text: ConstantText.share.txtLBRecoverPwd,
+                                               alignment: .left,
+                                               textColor: FunctionAll.share.ColoIconViews(type: .Black),
+                                               isTitle: true)
         self.view.addSubview(lb)
         lb.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
@@ -58,7 +61,12 @@ class RecoverPassword: UIViewController {
             make.height.equalTo(50)
             make.top.equalTo(lb.snp.bottom).offset(0)
         }
-        let btRecover = FunctionAll.share.createSignInBt(radius: 25, text: ConstantText.share.txtRecover, isImage: false, textImg: "")
+        let btRecover = FunctionAll.share.createSignInBt(radius: 20,
+                                                      text: ConstantText.share.txtRegisterEmail,
+                                                      isImage: false,
+                                                      textImg: "",
+                                                      colorBR: FunctionAll.share.ColoIconViews(type: .Disable)
+        )
         btRecover.isEnabled = false
         btRecover.addTarget(self, action: #selector(handleSendPasswordtoEmail), for: .touchUpInside)
         self.view.addSubview(btRecover)
