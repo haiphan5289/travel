@@ -9,25 +9,32 @@
 import UIKit
 import Photos
 
+//let imageCache = NSCache<AnyObject, AnyObject>()
+//var isData: Bool = false
+//var arDic: [AnyObject] = [AnyObject]()
+
 class PhotoGeneralCell: BaseCell {
     var lbCountPhotos: UILabel!
     var lblTitlePhotos: UILabel!
     var imgPhotos: UIImageView!
     var photo: UIImage!
     var images: [UIImage] = [UIImage]()
-//    var dataAlbum: PHAssetCollection?{
-//        didSet {
-//            guard let album = dataAlbum else { return }
-//            self.lbCountPhotos.text = String(album.estimatedAssetCount)
-//            self.lblTitlePhotos.text = album.localizedTitle
-//            DispatchQueue.main.async {
-//                self.FetchPhotoFromPHAssetCollection(album)
-//                DispatchQueue.main.async {
-//                    self.imgPhotos.image = self.images.last
-//                }
-//            }
-//        }
-//    }
+    var alertCell: UIAlertController!
+    var dataAlbum: PHAssetCollection?{
+        didSet {
+            guard let album = dataAlbum else { return }
+            self.lbCountPhotos.text = String(album.estimatedAssetCount)
+            self.lblTitlePhotos.text = album.localizedTitle
+            DispatchQueue.main.async {
+                self.FetchPhotoFromPHAssetCollection(album)
+//                FunctionAll.share.FetchPhotoFromPHAssetCollection(album)
+                DispatchQueue.main.async {
+                    self.imgPhotos.image = self.images.last
+                    self.alertCell.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+    }
     override func setupInitial() {
         super.setupInitial()
         self.layer.cornerRadius = 10
@@ -41,12 +48,16 @@ class PhotoGeneralCell: BaseCell {
     
     fileprivate func FetchPhotoFromPHAssetCollection(_ elementCollection: PHAssetCollection) {
         var photoAssets = PHFetchResult<AnyObject>()
+        //fetch theo điều kiện
+//        let photosOptions = PHFetchOptions()
+//        photosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//        photosOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
+        
         photoAssets = PHAsset.fetchAssets(in: elementCollection, options: nil) as! PHFetchResult<AnyObject>
         let imageManager = PHCachingImageManager()
         photoAssets.enumerateObjects{(object: AnyObject!,
             count: Int,
             stop: UnsafeMutablePointer<ObjCBool>) in
-            
             if object is PHAsset{
                 let asset = object as! PHAsset
                 //                print("Inside  If object is PHAsset, This is number 1")
@@ -65,26 +76,24 @@ class PhotoGeneralCell: BaseCell {
                                               options: options,
                                               resultHandler: {
                                                 (image, info) -> Void in
-                                                self.photo = image!
-                                                /* The image is now available to us */
-                                                self.addImgToArray(uploadImage: self.photo!)
-                                                
-                    })
+                                                    // self.photo = image!
+                                                    /* The image is now available to us */
+                                                    self.addImgToArray(uploadImage: image!)
+                                                }
+                    )}
                 }
-            }}
+            }
     }
     
-    func addImgToArray(uploadImage:UIImage)
-    {
+    func addImgToArray(uploadImage:UIImage){
         self.images.append(uploadImage)
-        
     }
     
     
     private func setupCusstomizelbPhotos(){
         lbCountPhotos = FunctionAll.share.createLabel(text: "222",
                                                       alignment: .left,
-                                                      textColor: FunctionAll.share.ColoIconViews(type: .Disable),
+                                                      textColor: FunctionAll.share.ColoIconViews(type: .Black),
                                                       isTitle: false)
         self.addSubview(lbCountPhotos)
         

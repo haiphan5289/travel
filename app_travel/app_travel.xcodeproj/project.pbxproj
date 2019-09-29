@@ -27,6 +27,10 @@
 		934DA65522F2F3C600354EA6 /* my_journis_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA65422F2F3C600354EA6 /* my_journis_cell.swift */; };
 		934DA67522F425B600354EA6 /* my_journis_first_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA67422F425B500354EA6 /* my_journis_first_cell.swift */; };
 		934DA67A22F4485600354EA6 /* create_journi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DA67922F4485600354EA6 /* create_journi.swift */; };
+		935D40A12338B7D9000A6C12 /* SelectPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D40A02338B7D9000A6C12 /* SelectPhoto.swift */; };
+		93A17BC9233A0C840036BAA3 /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A17BC8233A0C840036BAA3 /* SelectPhotoCell.swift */; };
+		93A17BCB233A20850036BAA3 /* BaseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A17BCA233A20850036BAA3 /* BaseHeader.swift */; };
+		93A17BCD233A20CE0036BAA3 /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A17BCC233A20CE0036BAA3 /* SelectPhotoHeader.swift */; };
 		93B0FEC42337A871000A9C91 /* PhotoGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0FEC32337A871000A9C91 /* PhotoGeneral.swift */; };
 		93B0FEC62337B4FC000A9C91 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0FEC52337B4FC000A9C91 /* BaseCell.swift */; };
 		93B0FEC82337B561000A9C91 /* PhotoGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0FEC72337B561000A9C91 /* PhotoGeneralCell.swift */; };
@@ -64,6 +68,10 @@
 		934DA65422F2F3C600354EA6 /* my_journis_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_journis_cell.swift; sourceTree = "<group>"; };
 		934DA67422F425B500354EA6 /* my_journis_first_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_journis_first_cell.swift; sourceTree = "<group>"; };
 		934DA67922F4485600354EA6 /* create_journi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = create_journi.swift; sourceTree = "<group>"; };
+		935D40A02338B7D9000A6C12 /* SelectPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhoto.swift; sourceTree = "<group>"; };
+		93A17BC8233A0C840036BAA3 /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
+		93A17BCA233A20850036BAA3 /* BaseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHeader.swift; sourceTree = "<group>"; };
+		93A17BCC233A20CE0036BAA3 /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
 		93B0FEC32337A871000A9C91 /* PhotoGeneral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGeneral.swift; sourceTree = "<group>"; };
 		93B0FEC52337B4FC000A9C91 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		93B0FEC72337B561000A9C91 /* PhotoGeneralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGeneralCell.swift; sourceTree = "<group>"; };
@@ -203,11 +211,22 @@
 			path = New_Journis;
 			sourceTree = "<group>";
 		};
+		93A17BC7233A0C610036BAA3 /* SelectPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				935D40A02338B7D9000A6C12 /* SelectPhoto.swift */,
+				93A17BC8233A0C840036BAA3 /* SelectPhotoCell.swift */,
+				93A17BCC233A20CE0036BAA3 /* SelectPhotoHeader.swift */,
+			);
+			path = SelectPhoto;
+			sourceTree = "<group>";
+		};
 		93B0FEC22337A84A000A9C91 /* SelectPhotos */ = {
 			isa = PBXGroup;
 			children = (
 				93B0FEC32337A871000A9C91 /* PhotoGeneral.swift */,
 				93B0FEC72337B561000A9C91 /* PhotoGeneralCell.swift */,
+				93A17BC7233A0C610036BAA3 /* SelectPhoto */,
 			);
 			path = SelectPhotos;
 			sourceTree = "<group>";
@@ -220,6 +239,7 @@
 				93194423232759F100ECA44B /* FunctionAll.swift */,
 				9319442523276D3400ECA44B /* User.swift */,
 				93B0FEC52337B4FC000A9C91 /* BaseCell.swift */,
+				93A17BCA233A20850036BAA3 /* BaseHeader.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -393,18 +413,22 @@
 				934DA64922F15DC700354EA6 /* profile_vc.swift in Sources */,
 				934DA67522F425B600354EA6 /* my_journis_first_cell.swift in Sources */,
 				931944492327F14200ECA44B /* SignIn.swift in Sources */,
+				93A17BC9233A0C840036BAA3 /* SelectPhotoCell.swift in Sources */,
 				93D8AF3F232FD31B001CB1C8 /* RegisterProfile.swift in Sources */,
 				93FD050E22FE832F00287F24 /* ExtenSion.swift in Sources */,
 				93B0FEC82337B561000A9C91 /* PhotoGeneralCell.swift in Sources */,
 				93FE03C722FE70FE00582662 /* Login.swift in Sources */,
+				93A17BCD233A20CE0036BAA3 /* SelectPhotoHeader.swift in Sources */,
 				93FE03C422FD2D4900582662 /* JourniDetailCellDisplay.swift in Sources */,
 				934DA64522F15DA900354EA6 /* search_vc.swift in Sources */,
+				93A17BCB233A20850036BAA3 /* BaseHeader.swift in Sources */,
 				934DA67A22F4485600354EA6 /* create_journi.swift in Sources */,
 				93D8AF39232A3017001CB1C8 /* RecoverPassword.swift in Sources */,
 				93FE03C222FD25E500582662 /* JourniDetailCell.swift in Sources */,
 				93B0FEC62337B4FC000A9C91 /* BaseCell.swift in Sources */,
 				934DA64722F15DBA00354EA6 /* notification.swift in Sources */,
 				93FD050C22FE7DFF00287F24 /* ConstantText.swift in Sources */,
+				935D40A12338B7D9000A6C12 /* SelectPhoto.swift in Sources */,
 				934DA62722F150FA00354EA6 /* AppDelegate.swift in Sources */,
 				9314DEB423335F8900FC30C4 /* Check.swift in Sources */,
 				934DA65522F2F3C600354EA6 /* my_journis_cell.swift in Sources */,
@@ -478,7 +502,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -533,7 +557,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

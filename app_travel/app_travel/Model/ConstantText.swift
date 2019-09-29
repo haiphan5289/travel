@@ -39,4 +39,8 @@ class ConstantText {
     let txtSearchMyJournis = "Filter by keyword or country"
     let txtPhotoGeneral = "Choose your source"
     let txtDone = "Done"
+    let txtSelectPhoto = "Select"
+    let txtDeSelectPhoto = "Deselect"
+    let txtSelectAll = "Select All"
+    let txtDeselectAll = "Deselect All"
 }

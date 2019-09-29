@@ -7,9 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 struct User: Codable {
     var id: String?
     var name: String?
     var email: String?
+}
+
+struct arCollection {
+    var img: UIImage!
+    var createDate: String!
 }

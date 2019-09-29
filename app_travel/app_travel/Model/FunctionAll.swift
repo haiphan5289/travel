@@ -11,6 +11,7 @@ import FirebaseAuth
 import Firebase
 import UIKit
 import SnapKit
+import Photos
 
 enum ColorIcon {
     case Blue, View, Green, Disable, White, Black
@@ -130,8 +131,13 @@ class FunctionAll {
         return img
     }
     
-    func createCollectionView(colorBR: UIColor) -> UICollectionView{
+    func createCollectionView(colorBR: UIColor, itemSpace: CGFloat, lineSpace: CGFloat, isHeader: Bool) -> UICollectionView{
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = itemSpace
+        layout.minimumLineSpacing = lineSpace
+        if isHeader {
+            layout.headerReferenceSize = CGSize(width: 10, height: 50)
+        }
         let collect: UICollectionView!
         collect = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collect.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
@@ -167,4 +173,126 @@ class FunctionAll {
         ]
         tableHome.setValue(data)
     }
+    
+    //Fetch Album from Photos Lỉbrary
+    func fetchCustomAlbumPhotos() -> [PHAssetCollection] {
+        var arAlbumPhotos: [PHAssetCollection] = [PHAssetCollection]()
+        //tạo tên album để có thể fetch album minh muốn
+//        let albumName = "đn"
+        var assetCollection = PHAssetCollection()
+        var albumFound = Bool()
+//                let fetchOptions = PHFetchOptions()
+//                fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
+        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album,
+                                                                               subtype: .any,
+                                                                               options: nil)
+        collection.enumerateObjects { (elementCollection, count, stop) in
+            if let firstObject = collection.lastObject{
+                //found the album
+                assetCollection = firstObject
+                albumFound = true
+                
+            }
+            else { albumFound = false }
+            //            let countAlbum = collection.count
+            //            print(countAlbum)
+            arAlbumPhotos.append(elementCollection)
+            //            self.FetchPhotoFromPHAssetCollection(elementCollection)
+        }
+        return arAlbumPhotos
+    }
+    
+        //Fetch Album from Photos Lỉbrary
+    func fetchAlbumFilterName(fetchOptions: PHFetchOptions, type: PHAssetCollectionType) -> [PHAssetCollection] {
+            var arAlbumPhotos: [PHAssetCollection] = [PHAssetCollection]()
+            //tạo tên album để có thể fetch album minh muốn
+//            let albumName = "đn"
+            var assetCollection = PHAssetCollection()
+            var albumFound = Bool()
+//                    let fetchOptions = PHFetchOptions()
+//                    fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
+        let collection:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: type,
+                                                                                   subtype: .any,
+                                                                                   options: fetchOptions)
+            collection.enumerateObjects { (elementCollection, count, stop) in
+                if let firstObject = collection.lastObject{
+                    //found the album
+                    assetCollection = firstObject
+                    albumFound = true
+                    
+                }
+                else { albumFound = false }
+                //            let countAlbum = collection.count
+                //            print(countAlbum)
+                arAlbumPhotos.append(elementCollection)
+                //            self.FetchPhotoFromPHAssetCollection(elementCollection)
+            }
+            return arAlbumPhotos
+    }
+    
+    //Set điều kiện filter theo tên album
+    func FilterNameAlbum(albumName: String) -> PHFetchOptions{
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
+        return fetchOptions
+    }
+    
+    //fetch image của album
+    func FetchPhotoFromPHAssetCollection(_ elementCollection: PHAssetCollection) -> [arCollection] {
+        var arPhotos: [arCollection] = [arCollection]()
+//        var photoAssets = PHFetchResult<AnyObject>()
+        //fetch theo điều kiện
+        let photosOptions = PHFetchOptions()
+        photosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        photosOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
+        //fetch của PHAssetCollection
+        var photoAssets: PHFetchResult = PHAsset.fetchAssets(in: elementCollection, options: photosOptions) 
+        let imageManager = PHCachingImageManager()
+//        print(photoAssets[0].creationDate)
+        photoAssets.enumerateObjects{(object: AnyObject!,
+            count: Int,
+            stop: UnsafeMutablePointer<ObjCBool>) in
+            if object is PHAsset{
+                let asset = object as! PHAsset
+                //                print("Inside  If object is PHAsset, This is number 1")
+                let imageSize = CGSize(width: asset.pixelWidth,
+                                       height: asset.pixelHeight)
+                /* For faster performance, and maybe degraded image */
+                let options = PHImageRequestOptions()
+                options.deliveryMode = .fastFormat
+                options.isSynchronous = true
+                imageManager.requestImage(for: asset,
+                                              targetSize: imageSize,
+                                              contentMode: .aspectFill,
+                                              options: options,
+                                              resultHandler: {
+                                                (image, info) -> Void in
+//                                                photo = image!
+                                                /* The image is now available to us */
+                                                //Add image vào mảng image
+                                                let dateString = String((asset.creationDate?.description.prefix(10))!)
+                                                let photo: arCollection = arCollection(img: image!,
+                                                                                       createDate: dateString)
+                                                arPhotos.append(photo)
+                    })
+            }}
+        return arPhotos
+    }
+    
+    //convet string về formate date mong muốn
+    private func convertDate(dateString: String) -> Date {
+//        let dateformat = DateFormatter()
+//        dateformat.dateFormat = "dd.MM.yy"
+//        let dateConvert = dateformat.date(from: dateString)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        return dateFormatter.date(from: dateString)!
+        
+    }
+//    func addImgToArray(uploadImage:UIImage)
+//    {
+//        self.images.append(uploadImage)
+//        
+//    }
+
 }

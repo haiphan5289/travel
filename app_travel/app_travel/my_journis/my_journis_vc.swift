@@ -28,7 +28,11 @@ class my_journis_vc: UIViewController {
     }
 
     func collection_autolayout(){
-        collect = FunctionAll.share.createCollectionView(colorBR: .white)
+        collect = FunctionAll.share.createCollectionView(colorBR: .white,
+                                                         itemSpace: 0,
+                                                         lineSpace: 10,
+                                                         isHeader: false
+        )
         self.view.addSubview(collect)
         collect.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
@@ -62,9 +66,12 @@ class my_journis_vc: UIViewController {
         search_bar_top!.isActive = true
 
         search.delegate = self
+        //Xài ios nhỏ hơn 13
         let searchTextField = search.value(forKey: "_searchField") as? UITextField
-        searchTextField?.backgroundColor = UIColor.lightGray
-        searchTextField?.textColor = UIColor.white
+        //xái ios 13
+//        let searchField = search.searchTextField
+        searchTextField!.backgroundColor = UIColor.lightGray
+        searchTextField!.textColor = UIColor.white
     }
     
     

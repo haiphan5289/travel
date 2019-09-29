@@ -110,7 +110,8 @@ class create_journi: UIViewController {
 //        img_picker.showsNumberOfSelectedAssets = true
 ////        img_picker.sourceType = .photoLibrary
 //        present(img_picker, animated: true, completion: nil)
-        self.navigationController?.pushViewController(PhotoGeneral(), animated: true)
+        let new = PhotoGeneral()
+        self.navigationController?.pushViewController(new, animated: true)
     }
     
     func navigation_autolayout(){

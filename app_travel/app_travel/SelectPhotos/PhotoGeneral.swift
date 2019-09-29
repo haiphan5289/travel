@@ -14,19 +14,44 @@ import RxSwift
 
 class PhotoGeneral: UIViewController {
 
+    var arAlbumPhotos: [PHAssetCollection] = [PHAssetCollection]()
+    var alert: UIAlertController!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = FunctionAll.share.ColoIconViews(type: .White)
-        setupViews()
+        let serialQueue = DispatchQueue(label: "com.queue.serial")
+        serialQueue.async {
+            self.alert = FunctionAll.share.ShowLoadingWithAlert()
+            self.present(self.alert, animated: true, completion: {
+                self.setupViews()
+            })
+        }
+//        self.setupViews()
+        
     }
-    
     func setupViews(){
-        setupCustomizeNavigation()
-        setupCustomezeCollection()
+        self.fetchAlbum()
+        self.setupCustomezeCollection()
     }
-    
-    private func setupCustomezeCollection(){
-        let collect = FunctionAll.share.createCollectionView(colorBR: FunctionAll.share.ColoIconViews(type: .White))
+    override func viewWillAppear(_ animated: Bool) {
+        self.setupCustomizeNavigation()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationItem.title = ""
+    }
+
+    func fetchAlbum(){
+        arAlbumPhotos = FunctionAll.share.fetchCustomAlbumPhotos()
+        
+    }
+
+
+    func setupCustomezeCollection(){
+        let collect = FunctionAll.share.createCollectionView(colorBR: FunctionAll.share.ColoIconViews(type: .White),
+                                                             itemSpace: 0,
+                                                             lineSpace: 10,
+                                                             isHeader: false
+                                                             )
         self.view.addSubview(collect)
         collect.snp.makeConstraints { (make) in
             make.left.top.right.bottom.equalToSuperview()
@@ -35,8 +60,8 @@ class PhotoGeneral: UIViewController {
         collect.dataSource = self
         collect.register(PhotoGeneralCell.self, forCellWithReuseIdentifier: "cell")
     }
-    
-    private func setupCustomizeNavigation(){
+
+    func setupCustomizeNavigation(){
         self.createNavigationViewInTabBar(statusBar: .default, titlerLarge: false, title: ConstantText.share.txtPhotoGeneral)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                                 target: self,
@@ -49,25 +74,34 @@ class PhotoGeneral: UIViewController {
         btRight.frame.size = CGSize(width: 70, height: 20)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btRight)
     }
-    
+
     @objc func handleBackView(){
         self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
 extension PhotoGeneral: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return self.arAlbumPhotos.count
+//        return 50
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PhotoGeneralCell
- 
+        cell.dataAlbum = self.arAlbumPhotos[indexPath.row]
+        cell.alertCell = self.alert
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (self.view.bounds.width - 40) / 2, height: 100)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (self.view.bounds.width - 40) / 2, height: 200)
     }
-    
-    
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let albumDetail = self.arAlbumPhotos[indexPath.row]
+        let newScr = SelectPhoto()
+        newScr.dataAlbum = albumDetail
+        self.navigationController?.pushViewController(newScr, animated: true)
+    }
+
+
 }
